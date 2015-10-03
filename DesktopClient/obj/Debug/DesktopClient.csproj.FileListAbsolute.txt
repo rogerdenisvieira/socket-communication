@@ -1,0 +1,3 @@
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\bin\Debug\TesteComunicaçãoSocket.exe.config
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.exe
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.pdb

@@ -1,0 +1,19 @@
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\bin\Debug\TesteComunicaçãoSocket.exe.config
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\obj\Debug\TesteComunicaçãoSocket.csprojResolveAssemblyReference.cache
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\obj\Debug\TesteComunicaçãoSocket.Main.resources
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\obj\Debug\TesteComunicaçãoSocket.Properties.Resources.resources
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\obj\Debug\TesteComunicaçãoSocket.csproj.GenerateResource.Cache
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\bin\Debug\TesteComunicaçãoSocket.exe
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\bin\Debug\TesteComunicaçãoSocket.pdb
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\obj\Debug\TesteComunicaçãoSocket.exe
+f:\visual studio 2013\Projects\TesteComunicaçãoSocket\obj\Debug\TesteComunicaçãoSocket.pdb
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\bin\Debug\TesteComunicaçãoSocket.exe.config
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.exe
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.pdb
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\bin\Debug\TesteComunicaçãoSocket.exe
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\bin\Debug\TesteComunicaçãoSocket.pdb
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.csprojResolveAssemblyReference.cache
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.Main.resources
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.Properties.Resources.resources
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.csproj.GenerateResource.Cache
+D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.Prototipo.resources

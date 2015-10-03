@@ -1,0 +1,1 @@
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.exe.config
