@@ -16,7 +16,7 @@ namespace TesteComunicaçãoSocket
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Prototipo());
+            Application.Run(new Main());
         }
     }
 }

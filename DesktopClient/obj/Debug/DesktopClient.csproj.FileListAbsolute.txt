@@ -1,3 +1,12 @@
 D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\bin\Debug\TesteComunicaçãoSocket.exe.config
 D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.exe
 D:\Projetos\Visual Studio 2013 Projects\Comunicação Socket\obj\Debug\TesteComunicaçãoSocket.pdb
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\TesteComunicaçãoSocket.Main.resources
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\TesteComunicaçãoSocket.Properties.Resources.resources
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csproj.GenerateResource.Cache
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\TesteComunicaçãoSocket.exe
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\bin\Debug\TesteComunicaçãoSocket.exe.config
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\bin\Debug\TesteComunicaçãoSocket.exe
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\bin\Debug\TesteComunicaçãoSocket.pdb
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\TesteComunicaçãoSocket.pdb
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csprojResolveAssemblyReference.cache
