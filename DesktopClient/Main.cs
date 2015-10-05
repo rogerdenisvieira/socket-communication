@@ -25,6 +25,7 @@ namespace TesteComunicaçãoSocket
             Console.SetOut(this.writer);
         }
 
+        //refatorar
         private void button1_Click(object sender, EventArgs e)
         {
             this.messages.Add(new Mensagem {
@@ -34,6 +35,22 @@ namespace TesteComunicaçãoSocket
 
             Console.WriteLine(String.Format("{0} : {1}", messages.Last().TimeStamp.ToString(), messages.Last().TextoMensagem));
             this.tbInput.Clear();
+        }
+
+        //refatorar
+        private void tbInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.messages.Add(new Mensagem
+                {
+                    TextoMensagem = this.tbInput.Text,
+                    TimeStamp = System.DateTime.Now,
+                });
+
+                Console.WriteLine(String.Format("{0} : {1}", messages.Last().TimeStamp.ToString(), messages.Last().TextoMensagem));
+                this.tbInput.Clear();
+            }
         }
 
 

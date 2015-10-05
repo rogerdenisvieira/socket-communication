@@ -29,29 +29,20 @@ namespace MessagingServer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int result;
-            if (int.TryParse(this.nudPort.Value.ToString(), out result))
-            {
-                this.server = new Server(result);
-            }
-            else
-            {
-                Console.WriteLine("Invalid port.");
-            }
-
-
+            Console.WriteLine("Starting server...");
             try
             {
-                this.serverThread = new Thread(server.execute);
+
+                this.server = new Server(Int32.Parse(nudPort.Value.ToString()));
+                this.serverThread = new Thread(server.RequestStart);
                 this.serverThread.Start();
                 this.handleGUIElements();
-                Console.WriteLine(String.Format("Port {0} opened.", this.server.Port));
+                Console.WriteLine(String.Format("Listening TCP port {0}", this.server.Port));
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
 
         private void handleGUIElements()
@@ -63,10 +54,14 @@ namespace MessagingServer
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            if (this.serverThread.IsAlive)
-            {
-                this.serverThread.Join();
-            }
+            this.server.RequestStop();
+            this.serverThread.Join();
+            this.handleGUIElements();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.server.SendMessage("Ola mundo!");
         }
     }
 }
