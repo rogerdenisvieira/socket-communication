@@ -11,83 +11,57 @@ namespace MessagingServer
 {
     class Server
     {
-        public int Port { get; set; }
-        private TcpListener tcpListener;
-        private TcpClient tcpClient;
-        private NetworkStream networkStream;
+        private int _port;
+        private Socket _serverSocket;
+        private List<Socket> _clientSockets;
+        private byte[] _buffer;
+
+
         
 
         public Server(int aPort)
         {
-            this.Port = aPort;
+            _port = aPort;
+            _clientSockets = new List<Socket>();
+            _buffer = new byte[1024];
+            _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        private void Connect()
+        public void SetupServer()
         {
-            try
-            {
-                this.tcpListener = new TcpListener(IPAddress.Any, this.Port);
-                this.tcpListener.Start();
-                
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, _port));
+            _serverSocket.Listen(5);
+            _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
         }
 
-        private void Disconnect()
+        private void AcceptCallback(IAsyncResult AR)
         {
-            try
-            {
-                if (this.tcpClient != null)
-                {
-                    this.tcpClient.Client.Disconnect(true);
-                }
-                this.tcpListener.Stop();
-                Console.WriteLine("Disconnected");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(String.Format("Error: {0}", ex.Message));
-            }
+            System.Windows.Forms.MessageBox.Show("client connected...");
+            Socket socket = _serverSocket.EndAccept(AR);
+            _clientSockets.Add(socket);
+            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+            _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
         }
 
-        private void AcceptConnection()
+        private void ReceiveCallback(IAsyncResult AR)
         {
-            try
-            {
-                this.tcpClient = this.tcpListener.AcceptTcpClient();
-                this.networkStream = this.tcpClient.GetStream();
-                
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            Socket socket = (Socket)AR.AsyncState;
+            int received = socket.EndReceive(AR);
+            byte[] dataBuffer = new byte[received];
+
+            Array.Copy(_buffer, dataBuffer, received);
+
+            string text = Encoding.ASCII.GetString(dataBuffer);
+            //Console.WriteLine("Text received: " + text);
+            System.Windows.Forms.MessageBox.Show(text);
+
         }
 
-        public void SendMessage(String message)
+        public int Port
         {
-            byte[] buffer = Encoding.Unicode.GetBytes(message);
-            this.networkStream.Write(buffer, 0, buffer.Length);
+            get { return _port; }
+            set { _port = value; }
         }
-
-
-
-
-        public void RequestStart()
-        {
-            Connect();
-            AcceptConnection();
-        }
-
-        public void RequestStop()
-        {
-            this.Disconnect();
-        }
-
-
 
     }
 }

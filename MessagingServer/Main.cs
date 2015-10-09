@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,8 +16,8 @@ namespace MessagingServer
     public partial class Main : Form
     {
         private TextWriter writer;
-        private Server server;
-        private Thread serverThread;
+        private Server _server;
+        private Thread _serverThread;
 
         public Main()
         {
@@ -24,25 +25,30 @@ namespace MessagingServer
             this.writer = new TextBoxStreamWriter(this.tbConsole);
             Console.SetOut(writer);
             Console.WriteLine("Redirecting messages...");
+            
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Starting server...");
-            try
-            {
+            Console.WriteLine(String.Format("Starting server {0}", Dns.GetHostName()));
+            _server = new Server(Int32.Parse(nudPort.Value.ToString()));
+            _server.SetupServer();
 
-                this.server = new Server(Int32.Parse(nudPort.Value.ToString()));
-                this.serverThread = new Thread(server.RequestStart);
-                this.serverThread.Start();
-                this.handleGUIElements();
-                Console.WriteLine(String.Format("Listening TCP port {0}", this.server.Port));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            handleGUIElements();
+        }
+
+
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+
+            this.handleGUIElements();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
         }
 
         private void handleGUIElements()
@@ -52,16 +58,5 @@ namespace MessagingServer
             this.btnStop.Enabled = !this.btnStop.Enabled;
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            this.server.RequestStop();
-            this.serverThread.Join();
-            this.handleGUIElements();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            this.server.SendMessage("Ola mundo!");
-        }
     }
 }
