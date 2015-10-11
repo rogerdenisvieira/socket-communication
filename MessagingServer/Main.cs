@@ -17,22 +17,26 @@ namespace MessagingServer
     {
         private TextWriter writer;
         private Server _server;
-        private Thread _serverThread;
-
+        
         public Main()
         {
             InitializeComponent();
             this.writer = new TextBoxStreamWriter(this.tbConsole);
             Console.SetOut(writer);
             Console.WriteLine("Redirecting messages...");
+            _server = new Server();
+            _server.RaiseMessage += HandleMessageEvent;
+            //dataGridView1.DataSource = _server.ClientSockets;
+
             
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnStart_Click(object sender, EventArgs e)
         {
             Console.WriteLine(String.Format("Starting server {0}", Dns.GetHostName()));
-            _server = new Server(Int32.Parse(nudPort.Value.ToString()));
+
+            _server.Port = Int32.Parse(nudPort.Value.ToString());
             _server.SetupServer();
 
             handleGUIElements();
@@ -56,6 +60,15 @@ namespace MessagingServer
             this.btnStart.Enabled = !this.btnStart.Enabled;
             this.nudPort.Enabled = !this.nudPort.Enabled;
             this.btnStop.Enabled = !this.btnStop.Enabled;
+        }
+
+        public void HandleMessageEvent(object sender, MessageEventArgs e)
+        {
+
+                Console.WriteLine(e.Message);
+
+
+            //MessageBox.Show("Test");
         }
 
     }

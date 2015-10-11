@@ -19,14 +19,26 @@ namespace MessagingServer
 
         public override void Write(char value)
         {
-            base.Write(value);
-            output.AppendText(value.ToString());
+            base.Write(value);            
+            AppendTextBox(value.ToString());
         }
 
         public override Encoding Encoding
         {
             get { return System.Text.Encoding.UTF8; }
         }
+
+        public void AppendTextBox(string value)
+        {
+            if (output.InvokeRequired)
+            {
+                output.Invoke(new Action<string>(AppendTextBox), new object[] { value });
+                return;
+            }
+            output.Text += value;
+        }
+
+
     }
 
 
