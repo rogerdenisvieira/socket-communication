@@ -13,32 +13,28 @@ using System.Windows.Forms;
 
 namespace MessagingServer
 {
-    public partial class Main : Form
+    public partial class ServerMain : Form
     {
-        private TextWriter writer;
+        private TextWriter _writer;
         private Server _server;
         
-        public Main()
+        public ServerMain()
         {
             InitializeComponent();
-            this.writer = new TextBoxStreamWriter(this.tbConsole);
-            Console.SetOut(writer);
-            Console.WriteLine("Redirecting messages...");
+            _writer = new TextBoxStreamWriter(this.tbConsole);
+            Console.SetOut(_writer);
+            Console.WriteLine(FormatLogMessage("Redirecting messages..."));
             _server = new Server();
             _server.RaiseMessage += HandleMessageEvent;
-            //dataGridView1.DataSource = _server.ClientSockets;
-
-            
-
         }
+
+
+
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(String.Format("Starting server {0}", Dns.GetHostName()));
-
-            _server.Port = Int32.Parse(nudPort.Value.ToString());
-            _server.SetupServer();
-
+            Console.WriteLine(FormatLogMessage(String.Format("Starting server {0}", Dns.GetHostName())));            
+            _server.SetupServer(Int32.Parse(nudPort.Value.ToString()));
             handleGUIElements();
         }
 
@@ -46,13 +42,8 @@ namespace MessagingServer
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-
+            _server.RequestToStop();
             this.handleGUIElements();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void handleGUIElements()
@@ -62,13 +53,14 @@ namespace MessagingServer
             this.btnStop.Enabled = !this.btnStop.Enabled;
         }
 
-        public void HandleMessageEvent(object sender, MessageEventArgs e)
+        private void HandleMessageEvent(object sender, MessageEventArgs e)
         {
+            Console.WriteLine(e.Message);
+        }
 
-                Console.WriteLine(e.Message);
-
-
-            //MessageBox.Show("Test");
+        private string FormatLogMessage(string message)
+        {
+            return String.Format("{0} : {1}", System.DateTime.Now, message);
         }
 
     }

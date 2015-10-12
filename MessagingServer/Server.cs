@@ -18,17 +18,26 @@ namespace MessagingServer
         private byte[] _buffer = new byte[1024];
         public event EventHandler<MessageEventArgs> RaiseMessage;
 
+        #region Construtor
 
         public Server()
         {
         }
 
-        public void SetupServer()
+        #endregion
+
+
+        #region Setup do Servidor
+        public void SetupServer(int port)
         {
-            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, _port));
+            _port = port;
+            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, port));
             _serverSocket.Listen(5);
             _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
         }
+        #endregion
+
+        #region Comunicação
 
         private void AcceptCallback(IAsyncResult AR)
         {
@@ -42,27 +51,41 @@ namespace MessagingServer
 
         private void ReceiveCallback(IAsyncResult AR)
         {
-            Socket socket = (Socket)AR.AsyncState;
-            int received = socket.EndReceive(AR);
-            byte[] dataBuffer = new byte[received];
-            Array.Copy(_buffer, dataBuffer, received);
-
-            string text = Encoding.ASCII.GetString(dataBuffer);
-
-            string response = string.Empty;
-
-            if (text.ToLower() != "t")
+            try
             {
-                response = "Invalid Request";
-            }
-            else
-            {
-                response = DateTime.Now.ToLongTimeString();
-            }
+                Socket socket = (Socket)AR.AsyncState;
+                int received = socket.EndReceive(AR);
 
-            byte[] data = Encoding.ASCII.GetBytes(response);
-            socket.BeginSend(data,0,data.Length, SocketFlags.None, new AsyncCallback(SendCallback),socket);
-            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+                if (received == 0)
+                {
+                    OnRaiseMessage(new MessageEventArgs("Client has disconnected."));
+                }
+
+
+                byte[] dataBuffer = new byte[received];
+                Array.Copy(_buffer, dataBuffer, received);
+
+                string text = Encoding.ASCII.GetString(dataBuffer);
+
+                string response = string.Empty;
+
+                if (text.ToLower() != "get time")
+                {
+                    response = "Invalid Request";
+                }
+                else
+                {
+                    response = DateTime.Now.ToLongTimeString();
+                }
+
+                byte[] data = Encoding.ASCII.GetBytes(response);
+                socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+                socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+            }
+            catch (SocketException ex)
+            {
+                OnRaiseMessage(new MessageEventArgs(ex.Message));
+            }
         }
 
         private void SendCallback(IAsyncResult AR)
@@ -73,13 +96,45 @@ namespace MessagingServer
             
         }
 
+#endregion
+
+        #region Eventos
+
         public void OnRaiseMessage(MessageEventArgs args)
         {
             EventHandler<MessageEventArgs> handler = RaiseMessage;
             handler(this, args);
         }
+        #endregion
 
+        public void RequestToStop()
+        {
+            foreach (Socket sck in _clientSockets)
+            {
+                try
+                {
+                    OnRaiseMessage(new MessageEventArgs(String.Format("Trying to disconnect from {0}", sck.RemoteEndPoint)));
+                    sck.Disconnect(true);
+                }
+                catch (Exception)
+                {
+                    OnRaiseMessage(new MessageEventArgs("An error has benn occurred"));
+                }
+            }
 
+            _serverSocket.Close();
+        }
+
+        //private string ProcessMessages(string message)
+        //{
+        //    switch (message)
+        //    {
+        //        default:
+        //            break;
+        //    }
+        //}
+
+        #region Propriedades
 
         public int Port
         {
@@ -92,6 +147,8 @@ namespace MessagingServer
             get { return _clientSockets; }
             set { _clientSockets = value; }
         }
+
+        #endregion
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TesteComunicaçãoSocket
 {
-    partial class Main
+    partial class ClientMain
     {
         /// <summary>
         /// Required designer variable.
@@ -74,8 +74,9 @@
             this.Controls.Add(this.tbOutput);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.tbInput);
+            this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "Form1";
+            this.Text = "Client";
             this.ResumeLayout(false);
             this.PerformLayout();
 
