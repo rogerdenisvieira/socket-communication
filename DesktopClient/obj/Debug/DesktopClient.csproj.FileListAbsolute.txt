@@ -9,3 +9,4 @@ D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\bin\De
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.Properties.Resources.resources
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.exe
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.pdb
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csprojResolveAssemblyReference.cache

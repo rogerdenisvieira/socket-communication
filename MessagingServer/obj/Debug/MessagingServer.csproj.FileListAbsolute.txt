@@ -6,3 +6,4 @@ D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\MessagingServer\obj\
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.exe
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.pdb
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.ServerMain.resources
+D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.csprojResolveAssemblyReference.cache

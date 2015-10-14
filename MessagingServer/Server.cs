@@ -13,7 +13,7 @@ namespace MessagingServer
     class Server
     {
         private int _port;
-        private Socket _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private Socket _serverSocket;
         private BindingList<Socket> _clientSockets = new BindingList<Socket>();
         private byte[] _buffer = new byte[1024];
         public event EventHandler<MessageEventArgs> RaiseMessage;
@@ -26,11 +26,11 @@ namespace MessagingServer
 
         #endregion
 
-
         #region Setup do Servidor
         public void SetupServer(int port)
         {
             _port = port;
+            _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _serverSocket.Bind(new IPEndPoint(IPAddress.Any, port));
             _serverSocket.Listen(5);
             _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
@@ -41,12 +41,19 @@ namespace MessagingServer
 
         private void AcceptCallback(IAsyncResult AR)
         {
+            try
+            {
 
-            Socket socket = _serverSocket.EndAccept(AR);
-            _clientSockets.Add(socket);
-            OnRaiseMessage(new MessageEventArgs(String.Format("New connection from {0}", socket.RemoteEndPoint.ToString())));
-            socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
-            _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+                Socket socket = _serverSocket.EndAccept(AR);
+                _clientSockets.Add(socket);
+                OnRaiseMessage(new MessageEventArgs(String.Format("New connection from {0}", socket.RemoteEndPoint.ToString())));
+                socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+            }
+            catch (Exception ex)
+            {
+                OnRaiseMessage(new MessageEventArgs("Server is not running."));
+            }
         }
 
         private void ReceiveCallback(IAsyncResult AR)
@@ -123,6 +130,7 @@ namespace MessagingServer
             }
 
             _serverSocket.Close();
+            _serverSocket.Dispose();
         }
 
         //private string ProcessMessages(string message)

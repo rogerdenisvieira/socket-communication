@@ -110,7 +110,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(350, 104);
             this.dataGridView1.TabIndex = 5;
             // 
-            // Main
+            // ServerMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -122,7 +122,9 @@
             this.Controls.Add(this.nudPort);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.tbConsole);
-            this.Name = "Main";
+            this.MaximizeBox = false;
+            this.Name = "ServerMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Messaging Server";
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

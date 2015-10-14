@@ -26,8 +26,8 @@ namespace TesteComunicaçãoSocket
             _writer = new TextBoxStreamWriter(this.tbOutput);
             Console.SetOut(this._writer);
             _client = new Client();
-            _client.Connect();
             _client.RaiseMessage += HandleMessageEvent;
+
         }
 
         //refatorar
@@ -72,6 +72,23 @@ namespace TesteComunicaçãoSocket
             this.tbInput.Clear();      
         }
 
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            _client.Connect();
+            handleGUIElements();
+        }
 
+        private void handleGUIElements()
+        {
+            this.btnStart.Enabled = !this.btnStart.Enabled;
+            this.nudPort.Enabled = !this.nudPort.Enabled;
+            this.btnStop.Enabled = !this.btnStop.Enabled;
+            this.tbServerIP.Enabled = !this.tbServerIP.Enabled;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            handleGUIElements();
+        }
     }
 }
