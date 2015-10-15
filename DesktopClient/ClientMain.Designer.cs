@@ -44,6 +44,7 @@
             // 
             this.tbInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbInput.Enabled = false;
             this.tbInput.Location = new System.Drawing.Point(12, 295);
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(441, 20);
@@ -53,6 +54,7 @@
             // btnSend
             // 
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSend.Enabled = false;
             this.btnSend.Location = new System.Drawing.Point(459, 295);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 20);
@@ -68,6 +70,7 @@
             this.tbOutput.Location = new System.Drawing.Point(12, 43);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbOutput.Size = new System.Drawing.Size(522, 243);
             this.tbOutput.TabIndex = 2;
@@ -139,6 +142,8 @@
             this.tbServerIP.Name = "tbServerIP";
             this.tbServerIP.Size = new System.Drawing.Size(109, 20);
             this.tbServerIP.TabIndex = 10;
+            this.tbServerIP.Text = "127.0.0.1";
+            this.tbServerIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // ClientMain
             // 

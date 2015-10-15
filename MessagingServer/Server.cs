@@ -66,6 +66,7 @@ namespace MessagingServer
                 if (received == 0)
                 {
                     OnRaiseMessage(new MessageEventArgs("Client has disconnected."));
+                    return;
                 }
 
 
