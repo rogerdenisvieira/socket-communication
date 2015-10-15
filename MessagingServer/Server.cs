@@ -66,6 +66,7 @@ namespace MessagingServer
                 if (received == 0)
                 {
                     OnRaiseMessage(new MessageEventArgs("Client has disconnected."));
+                    return;
                 }
 
 
@@ -114,14 +115,15 @@ namespace MessagingServer
         }
         #endregion
 
+        // TODO: Add standard code header comment here.
         public void RequestToStop()
         {
             foreach (Socket sck in _clientSockets)
             {
                 try
-                {
+                {                    
                     OnRaiseMessage(new MessageEventArgs(String.Format("Trying to disconnect from {0}", sck.RemoteEndPoint)));
-                    sck.Disconnect(true);
+                    sck.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), sck);
                 }
                 catch (Exception)
                 {
@@ -131,6 +133,12 @@ namespace MessagingServer
 
             _serverSocket.Close();
             _serverSocket.Dispose();
+        }
+
+        private void DisconnectCallback(IAsyncResult AR)
+        {
+            Socket socket = (Socket)AR.AsyncState;
+            socket.Disconnect(true);
         }
 
         //private string ProcessMessages(string message)

@@ -12,23 +12,51 @@ namespace TesteComunicaçãoSocket
     class Client
     {
         public event EventHandler<MessageEventArgs> RaiseMessage;
-        private Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);         
 
-        public void Connect()
+
+        public void Connect(int aPort, IPAddress Ip)
         {
-            int attempts = 0;
+            int attempts = 5;
 
-            while (!_clientSocket.Connected)
+
+
+            while (!_clientSocket.Connected && attempts > 0)
             {
                 try
-                {                  
-                    _clientSocket.Connect(IPAddress.Loopback, 1025);
-                }
-                catch (Exception)
                 {
-                    throw;
+                    OnRaiseMessage(new MessageEventArgs(String.Format("Attempt {0} to connect at server {1}:{2}", attempts, Ip.MapToIPv4().Address, aPort)));                    
+                    _clientSocket.Connect(Ip ,aPort);
+                    OnRaiseMessage(new MessageEventArgs("Connected!"));
+                    
+
+                }
+                catch (Exception ex)
+                {
+                    OnRaiseMessage(new MessageEventArgs("Failed!"));
+                    OnRaiseMessage(new MessageEventArgs(ex.Message));
+                    attempts--;
                 }
             }
+        }
+
+        public void Disconnect()
+        {
+            if (_clientSocket.Connected)
+            {
+                try
+                {
+                    //_clientSocket.Shutdown(SocketShutdown.Both);
+                    _clientSocket.Disconnect(true);
+                    _clientSocket.Close();
+                }
+                catch (SocketException ex) 
+                {
+                    OnRaiseMessage(new MessageEventArgs(ex.Message));
+                }
+            }
+            
+            
         }
 
         public void SendMessage(string message)

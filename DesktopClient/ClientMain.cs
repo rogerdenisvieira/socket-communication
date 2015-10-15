@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -67,15 +68,27 @@ namespace TesteComunicaçãoSocket
                 TimeStamp = System.DateTime.Now,
             });
 
-            Console.WriteLine(String.Format("{0} : {1}", _messages.Last().TimeStamp.ToString(), _messages.Last().TextoMensagem));
+            Console.WriteLine(FormatLogMessage(_messages.Last().TextoMensagem));
             _client.SendMessage(_messages.Last().TextoMensagem);
             this.tbInput.Clear();      
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            _client.Connect();
-            handleGUIElements();
+            IPAddress ip;
+            int port;
+
+            if (IPAddress.TryParse(this.tbServerIP.Text, out ip) && Int32.TryParse(this.nudPort.Value.ToString(), out port))
+            {                
+                _client.Connect(port, ip);
+                handleGUIElements();
+            }
+            else
+            {
+                Console.WriteLine(FormatLogMessage("Invalid TCP Port or IP Address."));
+            }
+
+
         }
 
         private void handleGUIElements()
@@ -84,11 +97,20 @@ namespace TesteComunicaçãoSocket
             this.nudPort.Enabled = !this.nudPort.Enabled;
             this.btnStop.Enabled = !this.btnStop.Enabled;
             this.tbServerIP.Enabled = !this.tbServerIP.Enabled;
+            this.tbInput.Enabled = !this.tbInput.Enabled;
+            this.btnSend.Enabled = !this.btnSend.Enabled;
         }
 
+        // TODO implementar a desconexão
         private void btnStop_Click(object sender, EventArgs e)
         {
+            _client.Disconnect();
             handleGUIElements();
+        }
+
+        private string FormatLogMessage(string message)
+        {
+            return String.Format("{0} : {1}", System.DateTime.Now, message);
         }
     }
 }
