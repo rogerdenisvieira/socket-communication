@@ -45,12 +45,12 @@
             this.tbConsole.Name = "tbConsole";
             this.tbConsole.ReadOnly = true;
             this.tbConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbConsole.Size = new System.Drawing.Size(350, 237);
+            this.tbConsole.Size = new System.Drawing.Size(419, 237);
             this.tbConsole.TabIndex = 0;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(433, 38);
+            this.btnStart.Location = new System.Drawing.Point(502, 38);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(78, 23);
             this.btnStart.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             // nudPort
             // 
-            this.nudPort.Location = new System.Drawing.Point(433, 12);
+            this.nudPort.Location = new System.Drawing.Point(502, 12);
             this.nudPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -83,7 +83,7 @@
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(368, 16);
+            this.lblPort.Location = new System.Drawing.Point(437, 16);
             this.lblPort.Name = "lblPort";
             this.lblPort.Size = new System.Drawing.Size(53, 13);
             this.lblPort.TabIndex = 3;
@@ -92,7 +92,7 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(433, 67);
+            this.btnStop.Location = new System.Drawing.Point(502, 67);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(78, 23);
             this.btnStop.TabIndex = 4;
@@ -107,7 +107,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 255);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(350, 104);
+            this.dataGridView1.Size = new System.Drawing.Size(419, 104);
             this.dataGridView1.TabIndex = 5;
             // 
             // ServerMain
@@ -115,7 +115,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(523, 371);
+            this.ClientSize = new System.Drawing.Size(592, 373);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.lblPort);

@@ -46,7 +46,7 @@ namespace TesteComunicaçãoSocket
             {
                 try
                 {
-                    
+                    //_clientSocket.Shutdown(SocketShutdown.Both);
                     _clientSocket.Disconnect(true);
                     _clientSocket.Close();
                 }
