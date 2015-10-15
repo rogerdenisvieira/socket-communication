@@ -115,7 +115,7 @@ namespace MessagingServer
         }
         #endregion
 
-        // TODO: Add standard code header comment here.
+        // TODO: corrigir a desconexão
         public void RequestToStop()
         {
             foreach (Socket sck in _clientSockets)
