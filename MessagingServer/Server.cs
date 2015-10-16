@@ -30,7 +30,12 @@ namespace MessagingServer
         public void SetupServer(int port)
         {
             _port = port;
-            _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            if (_serverSocket == null)
+            {
+                _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            }
+
             _serverSocket.Bind(new IPEndPoint(IPAddress.Any, port));
             _serverSocket.Listen(5);
             _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
@@ -61,33 +66,35 @@ namespace MessagingServer
             try
             {
                 Socket socket = (Socket)AR.AsyncState;
-                int received = socket.EndReceive(AR);
+                int receivedSize = socket.EndReceive(AR);
 
-                if (received == 0)
+                if (receivedSize == 0)
                 {
-                    OnRaiseMessage(new MessageEventArgs("Client has disconnected."));
+                    OnRaiseMessage(new MessageEventArgs("Client has been disconnected from the server."));
                     return;
                 }
 
+                // converte a cadeia de bytes recebida em uma mensagem
+                byte[] receivedData = new byte[receivedSize];
+                Array.Copy(_buffer, receivedData, receivedSize);
+                string receivedMessage = Encoding.ASCII.GetString(receivedData);
 
-                byte[] dataBuffer = new byte[received];
-                Array.Copy(_buffer, dataBuffer, received);
+                // mensagem que será enviada
+                string responseMessage = receivedMessage;
 
-                string text = Encoding.ASCII.GetString(dataBuffer);
+                // converte a mensagem de resposta em uma cadeia de bytes
+                byte[] responseData = Encoding.ASCII.GetBytes(responseMessage);
 
-                string response = string.Empty;
 
-                if (text.ToLower() != "get time")
+                // TODO: consertar essa porcaria
+                foreach (Socket sck in _clientSockets)
                 {
-                    response = "Invalid Request";
-                }
-                else
-                {
-                    response = DateTime.Now.ToLongTimeString();
+                    // envia a cadeia de bytes de  resposta
+                    OnRaiseMessage(new MessageEventArgs("Trying to send message..."));
+                    socket.BeginSend(responseData, 0, responseData.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
                 }
 
-                byte[] data = Encoding.ASCII.GetBytes(response);
-                socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+                // inicia o recebimento novamente
                 socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
             }
             catch (SocketException ex)

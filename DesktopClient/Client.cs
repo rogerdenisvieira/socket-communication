@@ -12,14 +12,14 @@ namespace TesteComunicaçãoSocket
     class Client
     {
         public event EventHandler<MessageEventArgs> RaiseMessage;
-        private Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);         
+        private Socket _clientSocket;         
 
 
         public void Connect(int aPort, IPAddress Ip)
         {
             int attempts = 5;
 
-
+                _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             while (!_clientSocket.Connected && attempts > 0)
             {
@@ -46,8 +46,7 @@ namespace TesteComunicaçãoSocket
             {
                 try
                 {
-                    //_clientSocket.Shutdown(SocketShutdown.Both);
-                    _clientSocket.Disconnect(true);
+                    _clientSocket.Shutdown(SocketShutdown.Both);
                     _clientSocket.Close();
                 }
                 catch (SocketException ex) 
