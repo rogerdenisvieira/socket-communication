@@ -30,15 +30,13 @@ namespace MessagingServer
         public void SetupServer(int port)
         {
             _port = port;
-
-            if (_serverSocket == null)
-            {
-                _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            }
-
+            _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _serverSocket.Bind(new IPEndPoint(IPAddress.Any, port));
             _serverSocket.Listen(5);
             _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+
+
+
         }
         #endregion
 
@@ -111,7 +109,7 @@ namespace MessagingServer
             
         }
 
-#endregion
+        #endregion
 
         #region Eventos
 
@@ -134,7 +132,7 @@ namespace MessagingServer
                 }
                 catch (Exception)
                 {
-                    OnRaiseMessage(new MessageEventArgs("An error has benn occurred"));
+                    OnRaiseMessage(new MessageEventArgs("An error has been occurred"));
                 }
             }
 
@@ -145,7 +143,15 @@ namespace MessagingServer
         private void DisconnectCallback(IAsyncResult AR)
         {
             Socket socket = (Socket)AR.AsyncState;
-            socket.Disconnect(true);
+            if (socket.Connected)
+            {
+                _clientSockets.Remove(socket);
+                socket.Disconnect(true);
+            }
+            else
+            {
+                socket.Close();
+            }
         }
 
         //private string ProcessMessages(string message)

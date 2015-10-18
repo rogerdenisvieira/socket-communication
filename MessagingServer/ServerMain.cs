@@ -55,12 +55,17 @@ namespace MessagingServer
 
         private void HandleMessageEvent(object sender, MessageEventArgs e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(FormatLogMessage(e.Message));
         }
 
         private string FormatLogMessage(string message)
         {
             return String.Format("{0} : {1}", System.DateTime.Now, message);
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            this.tbConsole.Clear();
         }
 
     }

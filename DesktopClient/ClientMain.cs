@@ -31,7 +31,7 @@ namespace TesteComunicaçãoSocket
 
         }
 
-        //refatorar
+        //TODO: refatorar
         private void button1_Click(object sender, EventArgs e)
         {
             if (tbInput.Text != string.Empty)
@@ -101,7 +101,7 @@ namespace TesteComunicaçãoSocket
             this.btnSend.Enabled = !this.btnSend.Enabled;
         }
 
-        // TODO implementar a desconexão
+
         private void btnStop_Click(object sender, EventArgs e)
         {
             _client.Disconnect();
