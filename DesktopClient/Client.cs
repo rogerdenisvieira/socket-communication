@@ -33,8 +33,7 @@ namespace TesteComunicaçãoSocket
                 }
                 catch (Exception ex)
                 {
-                    OnRaiseMessage(new MessageEventArgs("Failed!"));
-                    OnRaiseMessage(new MessageEventArgs(ex.Message));
+                    OnRaiseMessage(new MessageEventArgs("Failed!"));                    
                     attempts--;
                 }
             }

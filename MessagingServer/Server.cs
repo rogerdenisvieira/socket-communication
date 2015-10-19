@@ -17,6 +17,7 @@ namespace MessagingServer
         private BindingList<Socket> _clientSockets = new BindingList<Socket>();
         private byte[] _buffer = new byte[1024];
         public event EventHandler<MessageEventArgs> RaiseMessage;
+        private static string _responseMessage;
 
         #region Construtor
 
@@ -78,19 +79,10 @@ namespace MessagingServer
                 string receivedMessage = Encoding.ASCII.GetString(receivedData);
 
                 // mensagem que será enviada
-                string responseMessage = receivedMessage;
-
-                // converte a mensagem de resposta em uma cadeia de bytes
-                byte[] responseData = Encoding.ASCII.GetBytes(responseMessage);
+                ResponseMessage = receivedMessage;
 
 
-                // TODO: consertar essa porcaria
-                foreach (Socket sck in _clientSockets)
-                {
-                    // envia a cadeia de bytes de  resposta
-                    OnRaiseMessage(new MessageEventArgs("Trying to send message..."));
-                    socket.BeginSend(responseData, 0, responseData.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
-                }
+                SendMessage(socket, ResponseMessage);
 
                 // inicia o recebimento novamente
                 socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
@@ -99,6 +91,21 @@ namespace MessagingServer
             {
                 OnRaiseMessage(new MessageEventArgs(ex.Message));
             }
+        }
+
+        private void SendMessage(Socket socket, String message)
+        {
+            // converte a mensagem de resposta em uma cadeia de bytes
+            byte[] responseData = Encoding.ASCII.GetBytes(ResponseMessage);
+            
+            // TODO: consertar essa porcaria
+            foreach (Socket sck in _clientSockets)
+            {
+                // envia a cadeia de bytes de  resposta
+                OnRaiseMessage(new MessageEventArgs("Trying to send message..."));
+                socket.BeginSend(responseData, 0, responseData.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+            }
+
         }
 
         private void SendCallback(IAsyncResult AR)
@@ -146,6 +153,7 @@ namespace MessagingServer
             if (socket.Connected)
             {
                 _clientSockets.Remove(socket);
+                //socket.Shutdown(SocketShutdown.Both);
                 socket.Disconnect(true);
             }
             else
@@ -175,6 +183,12 @@ namespace MessagingServer
         {
             get { return _clientSockets; }
             set { _clientSockets = value; }
+        }
+
+        public static string ResponseMessage
+        {
+            get { return _responseMessage; }
+            set { _responseMessage = value; }
         }
 
         #endregion

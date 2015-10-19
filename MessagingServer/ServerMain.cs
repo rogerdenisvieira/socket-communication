@@ -26,10 +26,8 @@ namespace MessagingServer
             Console.WriteLine(FormatLogMessage("Redirecting messages..."));
             _server = new Server();
             _server.RaiseMessage += HandleMessageEvent;
+            dataGridView1.DataSource = _server.ClientSockets.Count;
         }
-
-
-
 
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -37,8 +35,6 @@ namespace MessagingServer
             _server.SetupServer(Int32.Parse(nudPort.Value.ToString()));
             handleGUIElements();
         }
-
-
 
         private void btnStop_Click(object sender, EventArgs e)
         {
@@ -68,5 +64,9 @@ namespace MessagingServer
             this.tbConsole.Clear();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(_server.ClientSockets.Count.ToString());
+        }
     }
 }
