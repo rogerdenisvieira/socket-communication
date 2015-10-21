@@ -18,3 +18,11 @@ C:\Users\Unisinos\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\Deskt
 C:\Users\Unisinos\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.exe
 C:\Users\Unisinos\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.pdb
 D:\Projetos\Visual Studio 2013 Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csprojResolveAssemblyReference.cache
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\bin\Debug\DesktopClient.exe.config
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\bin\Debug\DesktopClient.exe
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\bin\Debug\DesktopClient.pdb
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\obj\Debug\TesteComunicaçãoSocket.ClientMain.resources
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.Properties.Resources.resources
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csproj.GenerateResource.Cache
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.exe
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.pdb

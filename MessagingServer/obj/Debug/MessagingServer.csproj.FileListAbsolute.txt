@@ -15,3 +15,11 @@ C:\Users\Unisinos\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\Mes
 C:\Users\Unisinos\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.csproj.GenerateResource.Cache
 C:\Users\Unisinos\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.exe
 C:\Users\Unisinos\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.pdb
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.exe.config
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.exe
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.pdb
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.exe
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.pdb
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.ServerMain.resources
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.Properties.Resources.resources
+D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.csproj.GenerateResource.Cache

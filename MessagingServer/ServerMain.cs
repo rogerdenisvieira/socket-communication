@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MessagingServer
@@ -26,7 +18,7 @@ namespace MessagingServer
             Console.WriteLine(FormatLogMessage("Redirecting messages..."));
             _server = new Server();
             _server.RaiseMessage += HandleMessageEvent;
-            dataGridView1.DataSource = _server.ClientSockets.Count;
+            //dataGridView1.DataSource = _server.ClientSockets;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
