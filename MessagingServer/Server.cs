@@ -71,6 +71,7 @@ namespace MessagingServer
                 {
                     OnRaiseMessage(new MessageEventArgs("Client has been disconnected from the server."));
                     socket.Shutdown(SocketShutdown.Both);
+                    socket.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), socket);
                     _clientSockets.Remove(socket);
                     return;
                 }
@@ -80,9 +81,7 @@ namespace MessagingServer
                 Array.Copy(_buffer, receivedData, receivedSize);
                 string receivedMessage = Encoding.ASCII.GetString(receivedData);
 
-                SendMessage(socket, receivedMessage);
-
-                //socket.BeginSend(receivedData, 0, receivedData.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+                BroadcastMessage(receivedMessage);
 
                 // inicia o recebimento novamente
                 socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
@@ -93,14 +92,14 @@ namespace MessagingServer
             }
         }
 
-        private void SendMessage(Socket socket, String message)
+        private void BroadcastMessage(String message)
         {
             OnRaiseMessage(new MessageEventArgs("Trying to send message to all connected clients..."));
 
             // converte a mensagem de resposta em uma cadeia de bytes
             byte[] responseData = Encoding.ASCII.GetBytes(message);
 
-            // TODO: consertar essa porcaria
+            // envia mensagem para todos os sockets conectados
             foreach (Socket sck in _clientSockets)
             {
                 // envia a cadeia de bytes de  resposta
@@ -145,7 +144,7 @@ namespace MessagingServer
             }
 
             _serverSocket.Close();
-            _serverSocket.Dispose();
+//            _serverSocket.Dispose();
         }
 
         private void DisconnectCallback(IAsyncResult AR)
@@ -154,7 +153,7 @@ namespace MessagingServer
             if (socket.Connected)
             {
                 _clientSockets.Remove(socket);
-                //socket.Shutdown(SocketShutdown.Both);
+                socket.Shutdown(SocketShutdown.Both);
                 socket.Disconnect(true);
             }
             else

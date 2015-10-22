@@ -20,7 +20,9 @@ namespace TesteComunicaçãoSocket
         {
             int attempts = 5;
 
-                _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                
+            // TODO: validar esse objeto, pois após a desconexão ocorre o dispose() dele
+            _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             while (!_clientSocket.Connected && attempts > 0)
             {
@@ -71,24 +73,6 @@ namespace TesteComunicaçãoSocket
                 OnRaiseMessage(new MessageEventArgs(ex.Message));
                 throw;
             }
-        }
-
-        public void Disconnect()
-        {
-            if (_clientSocket.Connected)
-            {
-                try
-                {
-                    _clientSocket.Shutdown(SocketShutdown.Both);
-                    _clientSocket.Close();
-                }
-                catch (SocketException ex) 
-                {
-                    OnRaiseMessage(new MessageEventArgs(ex.Message));
-                }
-            }
-            
-            
         }
 
         public void SendMessage(string message)

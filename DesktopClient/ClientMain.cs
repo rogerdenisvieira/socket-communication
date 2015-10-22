@@ -45,7 +45,6 @@ namespace TesteComunicaçãoSocket
         {
             if (e.KeyCode == Keys.Enter && tbInput.Text != string.Empty)
             {
-
                 SendMessage(tbInput.Text);
             }
         }
@@ -95,18 +94,12 @@ namespace TesteComunicaçãoSocket
         {
             this.btnStart.Enabled = !this.btnStart.Enabled;
             this.nudPort.Enabled = !this.nudPort.Enabled;
-            this.btnStop.Enabled = !this.btnStop.Enabled;
+
             this.tbServerIP.Enabled = !this.tbServerIP.Enabled;
             this.tbInput.Enabled = !this.tbInput.Enabled;
             this.btnSend.Enabled = !this.btnSend.Enabled;
         }
 
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            _client.Disconnect();
-            handleGUIElements();
-        }
 
         private string FormatLogMessage(string message)
         {

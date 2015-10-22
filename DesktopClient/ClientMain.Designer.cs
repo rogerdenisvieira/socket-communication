@@ -31,7 +31,6 @@
             this.tbInput = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.tbOutput = new System.Windows.Forms.TextBox();
-            this.btnStop = new System.Windows.Forms.Button();
             this.lblPort = new System.Windows.Forms.Label();
             this.nudPort = new System.Windows.Forms.NumericUpDown();
             this.btnStart = new System.Windows.Forms.Button();
@@ -75,17 +74,6 @@
             this.tbOutput.Size = new System.Drawing.Size(522, 243);
             this.tbOutput.TabIndex = 2;
             // 
-            // btnStop
-            // 
-            this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(455, 11);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(78, 23);
-            this.btnStop.TabIndex = 8;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
             // lblPort
             // 
             this.lblPort.AutoSize = true;
@@ -119,7 +107,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(371, 11);
+            this.btnStart.Location = new System.Drawing.Point(371, 10);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(78, 23);
             this.btnStart.TabIndex = 5;
@@ -152,7 +140,6 @@
             this.ClientSize = new System.Drawing.Size(539, 327);
             this.Controls.Add(this.tbServerIP);
             this.Controls.Add(this.lblServerIP);
-            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.lblPort);
             this.Controls.Add(this.nudPort);
             this.Controls.Add(this.btnStart);
@@ -173,7 +160,6 @@
         private System.Windows.Forms.TextBox tbInput;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TextBox tbOutput;
-        private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Label lblPort;
         private System.Windows.Forms.NumericUpDown nudPort;
         private System.Windows.Forms.Button btnStart;

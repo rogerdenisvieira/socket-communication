@@ -23,3 +23,12 @@ D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\bin\Debug
 D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.ServerMain.resources
 D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.Properties.Resources.resources
 D:\Projetos\Visual Studio Projects\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.csproj.GenerateResource.Cache
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.exe.config
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.exe
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\bin\Debug\MessagingServer.pdb
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.ServerMain.resources
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.Properties.Resources.resources
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.csproj.GenerateResource.Cache
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.exe
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.pdb
+C:\Users\vieirar1\Source\Repos\SocketCommunication\MessagingServer\obj\Debug\MessagingServer.csprojResolveAssemblyReference.cache
