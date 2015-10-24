@@ -35,3 +35,4 @@ C:\Users\vieirar1\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\Deskt
 C:\Users\vieirar1\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.exe
 C:\Users\vieirar1\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.pdb
 C:\Users\vieirar1\Source\Repos\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csprojResolveAssemblyReference.cache
+D:\Projetos\Visual Studio Projects\SocketCommunication\DesktopClient\obj\Debug\DesktopClient.csprojResolveAssemblyReference.cache

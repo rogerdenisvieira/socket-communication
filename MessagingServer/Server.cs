@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MessagingServer
 {
@@ -46,6 +42,7 @@ namespace MessagingServer
 
         #region Comunicação
 
+        //aceita as conexões recebidas
         private void AcceptCallback(IAsyncResult AR)
         {
             try
@@ -53,6 +50,8 @@ namespace MessagingServer
                 Socket socket = _serverSocket.EndAccept(AR);
                 _clientSockets.Add(socket);
                 OnRaiseMessage(new MessageEventArgs(String.Format("New connection from {0}", socket.RemoteEndPoint.ToString())));
+
+                //inicia a escuta de solicitações pendentes
                 socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
                 _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
             }
@@ -62,6 +61,8 @@ namespace MessagingServer
             }
         }
 
+
+        //recebe as mensagens da conexão aceita
         private void ReceiveCallback(IAsyncResult AR)
         {
             if (_isRunning)
@@ -84,7 +85,8 @@ namespace MessagingServer
                     Array.Copy(_buffer, receivedData, receivedSize);
                     string receivedMessage = Encoding.ASCII.GetString(receivedData);
 
-                    ProcessMessages(receivedMessage);
+                    //trata o protocolo de chegada
+                    ProcessIncomingMessages(receivedMessage, socket);
 
                     // inicia o recebimento novamente
                     socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
@@ -96,7 +98,9 @@ namespace MessagingServer
             }
         }
 
-        private void BroadcastMessage(String message)
+
+        //envia a mensagem para todos os usuários conextados
+        private void BroadcastMessage(String message, Socket socket)
         {
             OnRaiseMessage(new MessageEventArgs("Trying to send message to all connected clients..."));
 
@@ -106,15 +110,15 @@ namespace MessagingServer
             // envia mensagem para todos os sockets conectados
             foreach (Socket sck in _clientSockets)
             {
-                if (sck.Connected)
+                if (sck.Connected && !sck.Equals(socket))
                 {
                     // envia a cadeia de bytes de  resposta
                     sck.BeginSend(responseData, 0, responseData.Length, SocketFlags.None, new AsyncCallback(SendCallback), sck);
                 }
             }
-
         }
 
+        //finaliza um envio pendente
         private void SendCallback(IAsyncResult AR)
         {
             Socket socket = (Socket)AR.AsyncState;
@@ -127,6 +131,7 @@ namespace MessagingServer
 
         #region Eventos
 
+        //delega ao método o evento de chegada de mensagens
         public void OnRaiseMessage(MessageEventArgs args)
         {
             EventHandler<MessageEventArgs> handler = RaiseMessage;
@@ -134,7 +139,7 @@ namespace MessagingServer
         }
         #endregion
 
-        // TODO: corrigir a desconexão
+        #region Desconexão
         public void RequestToStop()
         {
             _isRunning = false;
@@ -145,9 +150,9 @@ namespace MessagingServer
                     OnRaiseMessage(new MessageEventArgs(String.Format("Trying to disconnect from {0}", sck.RemoteEndPoint)));
                     sck.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), sck);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    OnRaiseMessage(new MessageEventArgs("An error has been occurred"));
+                    OnRaiseMessage(new MessageEventArgs("An error has been occurred." + ex.Message));
                 }
             }
 
@@ -170,27 +175,39 @@ namespace MessagingServer
                 socket.Close();
             }
         }
+        #endregion
 
-        private void ProcessMessages(string message)
+        #region Tratamento de protocolo
+        private void ProcessIncomingMessages(string message, Socket socket)
         {
-            Debug.Write(message + "\n");
-            Debug.Write(message.Substring(0, 4));
 
             if (message.Substring(0,5) == "[MSG]")
             {
-                BroadcastMessage(message.Substring(5));
+                //retira o cabeçalho e envia a mensagem
+                BroadcastMessage(message.Substring(5), socket);
             }
 
-            else if (message.Substring(0,4) == "[LGN]")
+            else if (message.Substring(0,5) == "[LGN]")
             {
-                DoLogin(message.Substring(0,5));
+                //retira o cabeçalho e faz o login
+                DoLogin(message.Substring(5), socket);
             }
         }
 
-        private void DoLogin(string args)
+        private void DoLogin(string usrAndPass, Socket socket)
         {
-            
+            //separa o nome e a senha
+            string[] args = usrAndPass.Split(':');
+
+            if(Utils.RemoveBrackets(args[0]) != "rogervieira" || Utils.RemoveBrackets(args[1]) != "mandolate")
+            {
+                byte[] data = Encoding.ASCII.GetBytes("[NOK]");
+                OnRaiseMessage(new MessageEventArgs(String.Format("Connection refused to host {0}", socket.RemoteEndPoint.ToString())));
+                _clientSockets.Remove(socket);
+                socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+            }
         }
+        #endregion
 
         #region Propriedades
 

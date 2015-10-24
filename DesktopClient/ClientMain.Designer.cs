@@ -160,7 +160,7 @@
             this.tbServerIP.Name = "tbServerIP";
             this.tbServerIP.Size = new System.Drawing.Size(109, 20);
             this.tbServerIP.TabIndex = 27;
-            this.tbServerIP.Text = "127.0.0.1";
+            this.tbServerIP.Text = "187.112.93.174";
             this.tbServerIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblServerIP
@@ -190,7 +190,7 @@
             0,
             0});
             this.nudPort.Minimum = new decimal(new int[] {
-            1025,
+            54321,
             0,
             0,
             0});
@@ -198,7 +198,7 @@
             this.nudPort.Size = new System.Drawing.Size(109, 20);
             this.nudPort.TabIndex = 24;
             this.nudPort.Value = new decimal(new int[] {
-            1025,
+            54321,
             0,
             0,
             0});

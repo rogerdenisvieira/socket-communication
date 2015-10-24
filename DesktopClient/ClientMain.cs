@@ -1,15 +1,10 @@
 ﻿using DesktopClient;
 using MessagingServer;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TesteComunicaçãoSocket
@@ -82,7 +77,7 @@ namespace TesteComunicaçãoSocket
 
             if (IPAddress.TryParse(this.tbServerIP.Text, out ip) && Int32.TryParse(this.nudPort.Value.ToString(), out port) && ValidadeAllTextBoxes())
             {                
-                _client.Connect(port, ip);
+                _client.Connect(port, ip, tbUsername.Text, tbPassword.Text, tbNick.Text);
                 handleGUIElements();
             }
             else
