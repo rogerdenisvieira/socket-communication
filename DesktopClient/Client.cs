@@ -77,7 +77,7 @@ namespace TesteComunicaçãoSocket
 
         public void SendMessage(string message)
         {
-            byte[] sendBuffer = Encoding.ASCII.GetBytes(message);
+            byte[] sendBuffer = Encoding.ASCII.GetBytes(String.Format("[MSG]{0}", message));
             _clientSocket.Send(sendBuffer);
             
             OnRaiseMessage(new MessageEventArgs(message));
